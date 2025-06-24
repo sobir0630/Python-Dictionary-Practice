@@ -633,8 +633,7 @@ def count_users_by_gender(data: dict) -> dict:
         gender_count[gender] = gender_count.get(gender, 0) + 1
     return gender_count
 
-
-def get_emails_of_older_than(data: dict, age: int) -> list[str]:
+def get_emails_of_older_than(data: dict, age: int = 60) -> list[str]:
     """
     Returns a list of emails of users older than the given age.
 
@@ -645,7 +644,14 @@ def get_emails_of_older_than(data: dict, age: int) -> list[str]:
     Returns:
         list[str]: List of email addresses.
     """
-    pass
+    users = data["results"]
+    emails = []
+
+    for user in users:
+        user_age = user.get("dob", {}).get("age", )
+        if user_age > age:
+            emails.append(user.get("email", ""))
+    return emails
 
 
 def sort_users_by_age(data: dict, descending: bool = False) -> list[dict]:
@@ -763,6 +769,9 @@ def run_functions() -> None:
     print("Full Names:", get_full_names(randomuser_data))
     print("Full Names:", get_users_by_country(randomuser_data, "India"))
     print("Full Names:", count_users_by_gender(randomuser_data))
+    age = int(input("yoshni krting: "))
+    result = get_emails_of_older_than(randomuser_data, age)
+    print("emails:", result)
     
 
 
